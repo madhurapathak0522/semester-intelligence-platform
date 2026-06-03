@@ -2,7 +2,8 @@ from flask import Flask
 
 app = Flask(__name__)
 
-# Home Page
+
+# HOME PAGE
 @app.route("/")
 def home():
     return """
@@ -27,7 +28,6 @@ def home():
                 padding: 12px;
                 font-size: 18px;
                 border-radius: 8px;
-                margin-top: 20px;
             }
 
             button {
@@ -39,10 +39,6 @@ def home():
                 border-radius: 8px;
                 font-size: 18px;
                 cursor: pointer;
-            }
-
-            button:hover {
-                opacity: 0.9;
             }
         </style>
     </head>
@@ -56,7 +52,6 @@ def home():
         <form action="/dashboard">
 
             <select name="semester">
-
                 <option>Semester 1</option>
                 <option>Semester 2</option>
                 <option>Semester 3</option>
@@ -65,7 +60,6 @@ def home():
                 <option>Semester 6</option>
                 <option>Semester 7</option>
                 <option>Semester 8</option>
-
             </select>
 
             <br>
@@ -81,7 +75,7 @@ def home():
     """
 
 
-# Dashboard Page
+# DASHBOARD PAGE
 @app.route("/dashboard")
 def dashboard():
     return """
@@ -89,32 +83,34 @@ def dashboard():
     <html>
     <head>
 
-        <title>Dashboard</title>
-
         <style>
             body {
                 font-family: Arial, sans-serif;
                 background: #f5f7fb;
-                padding: 40px;
-            }
-
-            h1 {
                 text-align: center;
+                padding: 40px;
             }
 
             .card {
                 background: white;
-                padding: 20px;
+                width: 320px;
                 margin: 20px auto;
-                width: 300px;
+                padding: 20px;
                 border-radius: 12px;
-                box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
-                text-align: center;
+                box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
             }
 
-            .progress {
-                color: #3498db;
-                font-weight: bold;
+            a {
+                text-decoration: none;
+            }
+
+            button {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 8px;
+                background: #3498db;
+                color: white;
+                cursor: pointer;
             }
         </style>
 
@@ -125,19 +121,126 @@ def dashboard():
         <h1>Semester Dashboard</h1>
 
         <div class="card">
-            <h2>Signals & Systems</h2>
-            <p class="progress">Progress: 40%</p>
-        </div>
-
-        <div class="card">
             <h2>Communication Systems</h2>
-            <p class="progress">Progress: 65%</p>
+            <p>Track your topic progress</p>
+
+            <a href="/subject">
+                <button>Open Subject</button>
+            </a>
         </div>
 
-        <div class="card">
-            <h2>Digital Electronics</h2>
-            <p class="progress">Progress: 20%</p>
+    </body>
+    </html>
+    """
+
+
+# SUBJECT TRACKER PAGE
+@app.route("/subject")
+def subject():
+    return """
+    <!DOCTYPE html>
+    <html>
+    <head>
+
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background: #f5f7fb;
+                padding: 40px;
+            }
+
+            .box {
+                background: white;
+                padding: 30px;
+                border-radius: 12px;
+                width: 400px;
+                margin: auto;
+            }
+
+            h1 {
+                text-align: center;
+            }
+
+            label {
+                font-size: 20px;
+                display: block;
+                margin: 15px 0;
+            }
+
+            #progress {
+                color: #3498db;
+                font-size: 22px;
+                font-weight: bold;
+                margin-top: 20px;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="box">
+
+            <h1>Communication Systems</h1>
+
+            <label>
+                <input type="checkbox" class="topic">
+                Modulation
+            </label>
+
+            <label>
+                <input type="checkbox" class="topic">
+                ASK
+            </label>
+
+            <label>
+                <input type="checkbox" class="topic">
+                FSK
+            </label>
+
+            <label>
+                <input type="checkbox" class="topic">
+                PCM
+            </label>
+
+            <h3 id="progress">
+                Progress: 0%
+            </h3>
+
         </div>
+
+        <script>
+
+            const checkboxes =
+                document.querySelectorAll(".topic");
+
+            const progress =
+                document.getElementById("progress");
+
+            checkboxes.forEach(box => {
+
+                box.addEventListener("change", () => {
+
+                    let checked = 0;
+
+                    checkboxes.forEach(item => {
+                        if(item.checked){
+                            checked++;
+                        }
+                    });
+
+                    let percent =
+                        (checked / checkboxes.length) * 100;
+
+                    progress.innerText =
+                        "Progress: " +
+                        percent.toFixed(0) +
+                        "%";
+                });
+
+            });
+
+        </script>
 
     </body>
     </html>
