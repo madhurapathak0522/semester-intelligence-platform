@@ -1,0 +1,259 @@
+/* Navbar Core Header */
+.navbar-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: background-color var(--transition-normal), border-color var(--transition-normal), padding var(--transition-normal);
+  border-bottom: 1px solid transparent;
+  padding: 24px 0;
+}
+
+/* Scrolled State (Obsidian Glassmorphism) */
+.navbar-header.scrolled {
+  background-color: rgba(8, 9, 13, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 0;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Flex Container */
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo Design - Swiss Tech Minimal */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+}
+
+.logo-icon {
+  width: 22px;
+  height: 22px;
+  color: var(--primary); /* Cobalt Blue */
+  transition: transform var(--transition-normal);
+}
+
+.navbar-logo:hover .logo-icon {
+  transform: rotate(90deg);
+  color: var(--secondary); /* Swaps to Tangerine on hover */
+}
+
+.gradient-text {
+  color: var(--secondary); /* Tangerine */
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+/* Navigation Menu (Desktop) */
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.navbar-link {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  position: relative;
+  padding: 6px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.01em;
+}
+
+.navbar-link:hover {
+  color: var(--text-primary);
+}
+
+/* Underline Hover (Cobalt) */
+.navbar-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary);
+  transition: width var(--transition-normal);
+}
+
+.navbar-link:hover::after {
+  width: 100%;
+}
+
+/* Badge (Tangerine) */
+.badge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  background-color: var(--secondary); /* Tangerine */
+  color: white;
+  padding: 1px 5px;
+  border-radius: var(--radius-sm);
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Actions Section */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-signin {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding: 8px 16px;
+}
+
+.btn-signin:hover {
+  color: var(--text-primary);
+}
+
+/* CTA: Cobalt Blue, sharp corners, transitioning to Tangerine */
+.btn-cta {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: white;
+  background-color: var(--primary); /* Cobalt Blue */
+  padding: 8px 18px;
+  border-radius: var(--radius-sm); /* Sharp corners (4px) */
+  border: 1px solid var(--primary);
+  box-shadow: var(--shadow-sm);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.btn-cta:hover {
+  background-color: var(--secondary); /* Tangerine */
+  border-color: var(--secondary);
+  transform: translateY(-1px);
+}
+
+.btn-cta:active {
+  transform: translateY(0);
+}
+
+/* Hamburger button (Mobile toggle) */
+.navbar-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 18px;
+  height: 12px;
+  z-index: 1001;
+}
+
+.hamburger-line {
+  width: 100%;
+  height: 2px;
+  background-color: var(--text-primary);
+  transition: all var(--transition-normal);
+}
+
+/* Actions inside Mobile Drawer */
+.navbar-mobile-actions {
+  display: none;
+}
+
+/* ==========================================================================
+   Responsive Styles (Mobile Viewports)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .navbar-hamburger {
+    display: flex;
+  }
+
+  .navbar-actions {
+    display: none;
+  }
+
+  /* Hamburger transform when menu is open */
+  .navbar-hamburger.open .hamburger-line:nth-child(1) {
+    transform: translateY(5px) rotate(45deg);
+  }
+
+  .navbar-hamburger.open .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .navbar-hamburger.open .hamburger-line:nth-child(3) {
+    transform: translateY(-5px) rotate(-45deg);
+  }
+
+  /* Mobile Drawer (Carbon Graphite) */
+  .navbar-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 240px;
+    height: 100vh;
+    background-color: var(--bg-surface);
+    border-left: 1px solid var(--border-color);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 80px 20px 40px;
+    gap: 16px;
+    transition: right var(--transition-normal);
+    box-shadow: var(--shadow-md);
+  }
+
+  .navbar-menu.active {
+    right: 0;
+  }
+
+  .navbar-link {
+    width: 100%;
+    font-size: 1rem;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .navbar-link::after {
+    display: none;
+  }
+
+  /* Stacked actions inside Drawer */
+  .navbar-mobile-actions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    margin-top: auto;
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+  }
+
+  .btn-signin,
+  .btn-cta {
+    width: 100%;
+    text-align: center;
+  }
+
+  .btn-signin {
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+  }
+}

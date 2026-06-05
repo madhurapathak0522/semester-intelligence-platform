@@ -1,0 +1,139 @@
+/* How It Works Section Layout */
+.how-section {
+  padding: 120px 0;
+  background-color: transparent;
+  border-top: 1px solid var(--border-color);
+}
+
+.how-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   Steps Timeline (Grid & Connectors)
+   ========================================================================== */
+
+.steps-timeline {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  position: relative;
+  margin-top: 60px;
+  width: 100%;
+}
+
+/* Horizontal line behind numbers on desktop */
+.timeline-connector-line {
+  position: absolute;
+  top: 25px; /* Center of the 50px number box */
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background-color: var(--border-color);
+  background-image: linear-gradient(90deg, var(--border-color) 60%, transparent 40%);
+  background-size: 10px 1px; /* Dashed circuit bus trace look */
+  z-index: 1;
+}
+
+/* Individual Step Block */
+.timeline-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 2; /* Sits above the background line */
+}
+
+/* Step Number Badge */
+.step-number-box {
+  width: 50px;
+  height: 50px;
+  background-color: var(--bg-dark); /* Blends with body to cover connector line */
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm); /* Sharp corners */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.step-num {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--secondary); /* Tangerine Orange */
+}
+
+.timeline-step:hover .step-number-box {
+  border-color: var(--primary); /* Highlight Cobalt on hover */
+  transform: scale(1.05);
+}
+
+/* Step Typography */
+.step-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+
+.step-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .how-section {
+    padding: 80px 0;
+  }
+
+  .steps-timeline {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 36px;
+    margin-top: 40px;
+    padding-left: 20px;
+  }
+
+  /* Transform connector line from horizontal to vertical */
+  .timeline-connector-line {
+    top: 25px;
+    left: 45px;
+    bottom: 25px;
+    right: auto;
+    width: 1px;
+    height: calc(100% - 50px);
+    background-image: linear-gradient(var(--border-color) 60%, transparent 40%);
+    background-size: 1px 10px;
+  }
+
+  .timeline-step {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .step-number-box {
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .step-text {
+    max-width: 100%;
+    margin-left: 0;
+  }
+}
